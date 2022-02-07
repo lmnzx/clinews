@@ -1,12 +1,14 @@
+use console::style;
 use dotenv::dotenv;
 use std::error::Error;
 
-use newsapi::{get_articles, Articles};
+use newsapi::{Article, Country, Endpoint, NewsApi};
 
-fn render_articles(articles: &Articles) {
-    for a in &articles.articles {
-        println!("> {}", a.title);
-        println!("- {}", a.url);
+fn render_articles(articles: &Vec<Article>) {
+    println!("{}", style("Top Headlines\n\n").green().bold().underlined());
+    for a in articles {
+        println!("{}", style(&a.title).bold().cyan());
+        println!("{}", style(&a.url).yellow());
         println!();
     }
 }
@@ -16,11 +18,14 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let api_key = std::env::var("API_KEY")?;
 
-    let url = &format!(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey={}",
-        api_key
-    );
-    let articles = get_articles(url)?;
-    render_articles(&articles);
+    let mut newsapi = NewsApi::new(&api_key);
+    newsapi
+        .endpoint(Endpoint::TopHeadlines)
+        .country(Country::Us);
+
+    let newsapi_response = newsapi.fetch()?;
+
+    render_articles(&newsapi_response.articles());
+
     Ok(())
 }
