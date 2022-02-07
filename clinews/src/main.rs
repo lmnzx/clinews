@@ -1,3 +1,4 @@
+use console::style;
 use dotenv::dotenv;
 use std::error::Error;
 
@@ -5,8 +6,8 @@ use newsapi::{get_articles, Articles};
 
 fn render_articles(articles: &Articles) {
     for a in &articles.articles {
-        println!("> {}", a.title);
-        println!("- {}", a.url);
+        println!("{}", style(&a.title).bold().cyan());
+        println!("{}", style(&a.url).yellow());
         println!();
     }
 }
