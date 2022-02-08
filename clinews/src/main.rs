@@ -7,8 +7,8 @@ use newsapi::{Article, Country, Endpoint, NewsApi};
 fn render_articles(articles: &Vec<Article>) {
     println!("{}", style("Top Headlines\n\n").green().bold().underlined());
     for a in articles {
-        println!("{}", style(&a.title).bold().cyan());
-        println!("{}", style(&a.url).yellow());
+        println!("{}", style(&a.title()).bold().cyan());
+        println!("{}", style(&a.url()).yellow());
         println!();
     }
 }

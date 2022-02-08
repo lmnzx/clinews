@@ -20,11 +20,6 @@ pub enum NewsApiError {
 }
 
 #[derive(Deserialize, Debug)]
-pub struct Articles {
-    pub articles: Vec<Article>,
-}
-
-#[derive(Deserialize, Debug)]
 pub struct NewsApiResponse {
     status: String,
     pub articles: Vec<Article>,
@@ -39,8 +34,18 @@ impl NewsApiResponse {
 
 #[derive(Deserialize, Debug)]
 pub struct Article {
-    pub title: String,
-    pub url: String,
+    title: String,
+    url: String,
+}
+
+impl Article {
+    pub fn title(&self) -> &str {
+        &self.title
+    }
+
+    pub fn url(&self) -> &str {
+        &self.url
+    }
 }
 
 pub enum Endpoint {
