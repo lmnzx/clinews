@@ -1,3 +1,3 @@
 [workspace]
 
-members = ["newsapi", "clinews"]
+members = ["newsapi", "clinews", "headlines"]
