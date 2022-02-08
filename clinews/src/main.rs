@@ -9,6 +9,9 @@ fn render_articles(articles: &Vec<Article>) {
     for a in articles {
         println!("{}", style(&a.title()).bold().cyan());
         println!("{}", style(&a.url()).yellow());
+        if let Some(desc) = a.desc() {
+            println!("{}", style(&desc).dim());
+        }
         println!();
     }
 }
